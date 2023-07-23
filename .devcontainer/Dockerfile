@@ -1,14 +1,24 @@
-# [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
-ARG VARIANT=16-bullseye
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
+ARG NODE_VERSION="20"
+ARG DEBIAN_VERSION="bullseye"
+ARG UBUNTU_VERSION="focal"
+FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${NODE_VERSION}-${UBUNTU_VERSION}
+# Need to redeclare this build arg so it's available after FROM again
+ARG DEBIAN_VERSION="bullseye"
+ARG UBUNTU_VERSION="focal"
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Ansible
+RUN echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu focal main" | \
+    tee /etc/apt/sources.list.d/ansible.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 && \
+    apt update \
+    && apt install ansible -y \
+    && rm -rf /var/lib/apt/lists/* \
+;
 
-# [Optional] Uncomment if you want to install an additional version of node using nvm
-# ARG EXTRA_NODE_VERSION=10
-# RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
+RUN npm install -g @go-task/cli
 
-# [Optional] Uncomment if you want to install more global node packages
-# RUN su node -c "npm install -g <your-package-list -here>"
+# Add Cloudflare Repository
+RUN mkdir -p --mode=0755 /usr/share/keyrings
+RUN curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+RUN echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared' "${DEBIAN_VERSION}" 'main' | tee /etc/apt/sources.list.d/cloudflared.list
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends cloudflared

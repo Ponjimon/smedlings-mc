@@ -31,3 +31,5 @@ override.tf.json
 *tfplan*
 *.plan*
 *lock*
+
+.vscode/

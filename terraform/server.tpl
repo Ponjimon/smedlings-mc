@@ -41,7 +41,7 @@ logfile: /var/log/cloudflared.log
 loglevel: info
 
 ingress:
-  - hostname: ssh-${domain}
+  - hostname: ssh.${hostname}
     service: ssh://localhost:22
   - hostname: "*"
     path: "^/_healthcheck$"

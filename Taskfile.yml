@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  deploy:
+    cmds:
+      - terraform -chdir=terraform plan -out=plan.out
+      - terraform -chdir=terraform apply plan.out
+  destroy:
+    cmds:
+      - terraform -chdir=terraform plan -destroy -out=plan.out
+      - terraform -chdir=terraform apply plan.out
