@@ -24,7 +24,7 @@ env:
   TF_VAR_location: ${{ vars.LOCATION }}
   TF_VAR_server_type: ${{ vars.SERVER_TYPE }}
   TF_VAR_image: ${{ vars.IMAGE }}
-  TF_VAR_repository_name: ${{ github.repository }}
+  TF_VAR_repository_name: ${{ github.event.repository.name }}
   TF_VAR_github_token: ${{ secrets.GHUB_TOKEN }}
 
 jobs:
