@@ -11,12 +11,23 @@ resource "cloudflare_access_application" "ssh_app" {
 resource "cloudflare_access_policy" "ssh_policy" {
   application_id = cloudflare_access_application.ssh_app.id
   zone_id        = var.cloudflare_zone_id
-  name           = "Example Policy for ssh.${var.hostname}"
+  name           = "Policy for ssh.${var.hostname}"
   precedence     = "1"
   decision       = "allow"
 
   include {
     email         = [var.cloudflare_email]
+  }
+}
+
+resource "cloudflare_access_policy" "ssh_policy_service_token" {
+  application_id = cloudflare_access_application.ssh_app.id
+  zone_id        = var.cloudflare_zone_id
+  name           = "Service Token Policy for ssh.${var.hostname}"
+  precedence     = "2"
+  decision       = "non_identity"
+
+  include {
     service_token = [cloudflare_access_service_token.ci.id]
   }
 }
