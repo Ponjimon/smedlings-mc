@@ -90,6 +90,7 @@ jobs:
 
       - name: Debug Secrets
         run: |
+          echo -n "${{ secrets.DEBUG_TEST }}"
           echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_ID }}" | tail -c 4
           echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_SECRET }}" | tail -c 4
 
