@@ -1,0 +1,15 @@
+name: Debug
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug Secrets
+        run: |
+          echo -n "${{ secrets.DEBUG_TEST }}"
+          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_ID }}" | tail -c 4
+          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_SECRET }}" | tail -c 4
