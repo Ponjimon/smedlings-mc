@@ -94,6 +94,11 @@ jobs:
           echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared '"$(lsb_release -cs)"' main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
           sudo apt update && sudo apt install cloudflared
 
+      - name: Debug Secrets
+        run: |
+          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_ID }}" | tail -c 4
+          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_SECRET }}" | tail -c 4
+
       - name: Test SSH Connection Debug
         run: |
           ssh \
