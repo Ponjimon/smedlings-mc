@@ -45,6 +45,7 @@ jobs:
             ${{ github.workspace }}/terraform
 
   deploy:
+    permissions: write-all
     name: Deploying infrastructure
     needs: [setup]
     runs-on: ubuntu-latest
