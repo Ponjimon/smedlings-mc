@@ -35,7 +35,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref = 'refs/heads/main' && 'production' || github.ref = 'refs/heads/develop' && 'development' }}
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'development' }}
     steps:
       - name: Test
         run: echo -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" | tail -c 4
