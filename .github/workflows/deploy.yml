@@ -94,26 +94,17 @@ jobs:
           echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared '"$(lsb_release -cs)"' main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
           sudo apt update && sudo apt install cloudflared
 
-      - name: Confirm secret creation
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{repository}/actions/secrets/{secret_name}
-          repository: ${{ github.repository }}
-          secret_name: CF_ACCESS_SERVICE_TOKEN_ID
-        env:
-          GITHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
-
       - name: Debug Secrets
         run: |
           echo -n "${{ secrets.DEBUG_TEST }}"
-          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_ID }}" | tail -c 4
-          echo -n "${{ secrets.CF_ACCESS_SERVICE_TOKEN_SECRET }}" | tail -c 4
+          echo -n "${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}" | tail -c 4
+          echo -n "${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}" | tail -c 4
 
       - name: Test SSH Connection Debug
         run: |
           ssh \
             -Tvv \
-            -o ProxyCommand="cloudflared access ssh --hostname ssh.${{ secrets.HOSTNAME }} --id ${{ secrets.CF_ACCESS_SERVICE_TOKEN_ID }} --secret ${{ secrets.CF_ACCESS_SERVICE_TOKEN_SECRET }}" \
+            -o ProxyCommand="cloudflared access ssh --hostname ssh.${{ secrets.HOSTNAME }} --id ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }} --secret ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}" \
             business@ssh.${{ secrets.HOSTNAME }}
 
       # - name: Add SSH private key

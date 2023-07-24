@@ -28,22 +28,11 @@ resource "cloudflare_access_policy" "ssh_policy_service_token" {
   decision       = "non_identity"
 
   include {
-    service_token = [cloudflare_access_service_token.ci.id]
+    service_token = [var.cloudflare_service_token_id]
   }
 }
 
 resource "cloudflare_access_ca_certificate" "ssh_short_lived" {
   zone_id        = var.cloudflare_zone_id
   application_id = cloudflare_access_application.ssh_app.id
-}
-
-resource "cloudflare_access_service_token" "ci" {
-  account_id = var.cloudflare_account_id
-  name       = "CI"
-
-  min_days_for_renewal = 30
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }

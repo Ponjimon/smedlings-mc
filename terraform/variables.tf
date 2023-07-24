@@ -26,6 +26,12 @@ variable "cloudflare_token" {
   type        = string
 }
 
+variable "cloudflare_service_token_id" {
+  description = "The Cloudflare service token ID."
+  type        = string
+  sensitive   = true
+}
+
 # Hetzner variables
 variable "hcloud_token" {
   description = "The Hetzner Cloud API token."

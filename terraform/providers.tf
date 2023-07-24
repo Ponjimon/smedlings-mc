@@ -8,10 +8,6 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "1.41.0"
     }
-    github = {
-      source  = "integrations/github"
-      version = "5.31.0"
-    }
     random = {
       source = "hashicorp/random"
     }
@@ -29,10 +25,6 @@ provider "cloudflare" {
 
 provider "hcloud" {
   token = var.hcloud_token
-}
-
-provider "github" {
-  token = var.github_token
 }
 
 provider "random" {
