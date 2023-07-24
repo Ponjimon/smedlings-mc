@@ -19,10 +19,6 @@ env:
   TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
   TF_VAR_cloudflare_email: ${{ secrets.CLOUDFLARE_EMAIL }}
   TF_VAR_cloudflare_token: ${{ secrets.CLOUDFLARE_TOKEN }}
-  TF_VAR_r2_bucket: ${{ secrets.R2_BUCKET }}
-  TF_VAR_r2_endpoint: ${{ secrets.R2_ENDPOINT }}
-  TF_VAR_r2_access_key: ${{ secrets.R2_ACCESS_KEY }}
-  TF_VAR_r2_secret_key: ${{ secrets.R2_SECRET_KEY }}
   TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
   TF_VAR_hostname: ${{ secrets.HOSTNAME }}
   TF_VAR_location: ${{ vars.LOCATION }}
@@ -30,6 +26,9 @@ env:
   TF_VAR_image: ${{ vars.IMAGE }}
   TF_VAR_repository_name: ${{ github.event.repository.name }}
   TF_VAR_github_token: ${{ secrets.GHUB_TOKEN }}
+
+  AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_KEY }}
 
 jobs:
   setup:
@@ -66,7 +65,7 @@ jobs:
         run: terraform fmt -check
 
       - name: Terraform init
-        run: terraform init
+        run: terraform init -reconfigure -backend-config="region=auto" -backend-config="bucket=${{ secret.R2_BUCKET}}" -backend-config="key=terraform.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
 
       - name: Terraform validate
         run: terraform validate
