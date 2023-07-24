@@ -19,6 +19,8 @@ terraform {
       source = "hashicorp/template"
     }
   }
+
+  backend "s3" {}
 }
 
 provider "cloudflare" {
