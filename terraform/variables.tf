@@ -26,6 +26,28 @@ variable "cloudflare_token" {
   type        = string
 }
 
+variable "r2_bucket" {
+  description = "The R2 bucket to store the Terraform state in."
+  type        = string
+}
+
+variable "r2_endpoint" {
+  description = "The R2 endpoint to store the Terraform state in."
+  type        = string
+}
+
+variable "r2_access_key" {
+  description = "The R2 access key to store the Terraform state in."
+  type        = string
+  sensitive   = true
+}
+
+variable "r2_secret_key" {
+  description = "The R2 secret key to store the Terraform state in."
+  type        = string
+  sensitive   = true
+}
+
 # Hetzner variables
 variable "hcloud_token" {
   description = "The Hetzner Cloud API token."

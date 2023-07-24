@@ -19,6 +19,19 @@ terraform {
       source = "hashicorp/template"
     }
   }
+
+  backend "s3" {
+    bucket     = var.r2_bucket
+    key        = "terraform.tfstate"
+    region     = "auto"
+    endpoint   = var.r2_endpoint
+    access_key = var.r2_access_key
+    secret_key = var.r2_secret_key
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_meta_api_check         = true
+  }
 }
 
 provider "cloudflare" {
