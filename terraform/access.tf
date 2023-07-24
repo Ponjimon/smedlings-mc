@@ -16,7 +16,7 @@ resource "cloudflare_access_policy" "ssh_policy" {
   decision       = "allow"
 
   include {
-    email         = [var.cloudflare_email]
+    email = [var.cloudflare_email]
   }
 }
 
