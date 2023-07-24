@@ -97,7 +97,7 @@ jobs:
       - name: Confirm secret creation
         uses: octokit/request-action@v2.x
         with:
-          route: GET /repos/:repository/actions/secrets/:secret_name
+          route: GET /repos/{repository}/actions/secrets/{secret_name}
           repository: ${{ github.repository }}
           secret_name: CF_ACCESS_SERVICE_TOKEN_ID
         env:
