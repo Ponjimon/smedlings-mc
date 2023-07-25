@@ -32,6 +32,12 @@ variable "cloudflare_service_token_id" {
   sensitive   = true
 }
 
+variable "cloudflare_access_group_id" {
+  description = "The Cloudflare access group ID."
+  type        = string
+  sensitive   = true
+}
+
 # Hetzner variables
 variable "hcloud_token" {
   description = "The Hetzner Cloud API token."
@@ -64,4 +70,10 @@ variable "github_token" {
 variable "repository_name" {
   description = "The Github repository name."
   type        = string
+}
+
+variable "webhook_url" {
+  description = "The Discord webhook URL."
+  type        = string
+  sensitive   = true
 }

@@ -13,6 +13,7 @@ resource "hcloud_server" "instance" {
       hostname      = var.hostname,
       account       = var.cloudflare_account_id,
       email         = var.cloudflare_email,
+      webhook_url   = var.webhook_url,
       unix_password = random_password.unix_password.result,
       tunnel_id     = cloudflare_tunnel.auto_tunnel.id,
       tunnel_name   = cloudflare_tunnel.auto_tunnel.name,
