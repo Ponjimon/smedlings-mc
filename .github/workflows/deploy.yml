@@ -60,7 +60,7 @@ jobs:
         with:
           name: repository
 
-      - uses: opentofu/setup-@v1
+      - uses: opentofu/setup-opentofu@v1
 
       - name: Tofu fmt
         run: tofu fmt -check
