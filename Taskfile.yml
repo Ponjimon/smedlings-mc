@@ -6,14 +6,14 @@ tasks:
   init:
     cmds:
       - echo hiiiii "${R2_BUCKET}"
-      - tofu -chdir=terraform init -upgrade -reconfigure -backend-config="region=auto" -backend-config="bucket=${R2_BUCKET}" -backend-config="endpoint=${R2_ENDPOINT}" -backend-config="key=tofu.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
+      - terraform -chdir=terraform init -reconfigure -backend-config="region=auto" -backend-config="bucket=${R2_BUCKET}" -backend-config="endpoint=${R2_ENDPOINT}" -backend-config="key=terraform.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
   deploy:
     cmds:
-      - tofu -chdir=terraform validate
-      - tofu -chdir=terraform plan
-      - tofu -chdir=terraform apply -auto-approve
+      - terraform -chdir=terraform validate
+      - terraform -chdir=terraform plan
+      - terraform -chdir=terraform apply -auto-approve
   destroy:
     cmds:
-      - tofu -chdir=terraform validate
-      - tofu -chdir=terraform plan -destroy
-      - tofu -chdir=terraform destroy -auto-approve
+      - terraform -chdir=terraform validate
+      - terraform -chdir=terraform plan -destroy
+      - terraform -chdir=terraform destroy -auto-approve

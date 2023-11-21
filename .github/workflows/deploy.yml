@@ -46,7 +46,7 @@ jobs:
         with:
           name: repository
           path: |
-            ${{ github.workspace }}/tofu
+            ${{ github.workspace }}/terraform
 
   deploy:
     name: Deploying infrastructure
@@ -60,22 +60,22 @@ jobs:
         with:
           name: repository
 
-      - uses: opentofu/setup-@v1
+      - uses: hashicorp/setup-terraform@v2
 
-      - name: Tofu fmt
-        run: tofu fmt -check
+      - name: Terraform fmt
+        run: terraform fmt -check
 
-      - name: Tofu init
-        run: tofu init -reconfigure -backend-config="region=auto" -backend-config="bucket=${{ secrets.R2_BUCKET}}" -backend-config="endpoint=${{ secrets.R2_ENDPOINT }}" -backend-config="key=tofu.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
+      - name: Terraform init
+        run: terraform init -reconfigure -backend-config="region=auto" -backend-config="bucket=${{ secrets.R2_BUCKET}}" -backend-config="endpoint=${{ secrets.R2_ENDPOINT }}" -backend-config="key=terraform.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
 
-      - name: Tofu validate
-        run: tofu validate
+      - name: Terraform validate
+        run: terraform validate
 
-      - name: Tofu plan
-        run: tofu plan
+      - name: Terraform plan
+        run: terraform plan
 
-      - name: Tofu apply
-        run: tofu apply -auto-approve
+      - name: Terraform apply
+        run: terraform apply -auto-approve
 
   provision:
     name: Provisioning infrastructure

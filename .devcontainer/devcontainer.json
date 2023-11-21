@@ -19,7 +19,6 @@
 	},
 	"remoteUser": "node",
 	"features": {
-		"terraform": "latest",
-		"ghcr.io/robbert229/devcontainer-features/opentofu:1": {}
+		"terraform": "latest"
 	}
 }
