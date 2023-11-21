@@ -93,17 +93,12 @@ jobs:
         with:
           name: repository
 
-      - name: Install cloudflared
-        run: |
-          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
-          echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared '"$(lsb_release -cs)"' main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
-          sudo apt update && sudo apt install cloudflared
-
-      - name: Debug Secrets
-        run: |
-          echo -n "${{ secrets.DEBUG_TEST }}"
-          echo -n "${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}" | tail -c 4
-          echo -n "${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}" | tail -c 4
+      - name: Setup Cloudflare Warp
+        uses: Bootsport/setup-cloudflare-warp@v1
+        with:
+          organisation: "ponjimon"
+          auth_client_id: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}
+          auth_client_secret: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}
 
       - name: Test SSH Connection Debug
         run: |
