@@ -19,6 +19,6 @@
 	},
 	"remoteUser": "node",
 	"features": {
-		"terraform": "latest"
+		"terraform": "1.5.7"
 	}
 }
