@@ -17,3 +17,6 @@ tasks:
       - terraform -chdir=terraform validate
       - terraform -chdir=terraform plan -destroy
       - terraform -chdir=terraform destroy -auto-approve
+  fmt:
+    cmds:
+      - terraform -chdir=terraform fmt

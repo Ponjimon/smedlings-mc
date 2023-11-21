@@ -17,6 +17,8 @@ env:
   TF_VAR_cloudflare_email: ${{ secrets.CLOUDFLARE_EMAIL }}
   TF_VAR_cloudflare_token: ${{ secrets.CLOUDFLARE_TOKEN }}
   TF_VAR_cloudflare_service_token_id: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}
+  TF_VAR_cloudflare_service_token_client_id: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_CLIENT_ID }}
+  TF_VAR_cloudflare_service_token_client_secret: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_CLIENT_SECRET }}
   TF_VAR_cloudflare_access_group_id: ${{ secrets.CLOUDFLARE_ACCESS_GROUP_ID }}
   TF_VAR_webhook_url: ${{ secrets.WEBHOOK_URL }}
   TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
