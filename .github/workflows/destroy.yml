@@ -43,7 +43,7 @@ jobs:
         with:
           name: repository
           path: |
-            ${{ github.workspace }}/terraform
+            ${{ github.workspace }}/tofu
 
   destroy:
     name: Destroying infrastructure
@@ -57,19 +57,19 @@ jobs:
         with:
           name: repository
 
-      - uses: hashicorp/setup-terraform@v2
+      - uses: opentofu/setup-@v1
 
-      - name: Terraform fmt
-        run: terraform fmt -check
+      - name: Tofu fmt
+        run: tofu fmt -check
 
-      - name: Terraform init
-        run: terraform init -reconfigure -backend-config="region=auto" -backend-config="bucket=${{ secrets.R2_BUCKET}}" -backend-config="endpoint=${{ secrets.R2_ENDPOINT }}" -backend-config="key=terraform.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
+      - name: Tofu init
+        run: tofu init -reconfigure -backend-config="region=auto" -backend-config="bucket=${{ secrets.R2_BUCKET}}" -backend-config="endpoint=${{ secrets.R2_ENDPOINT }}" -backend-config="key=tofu.tfstate" -backend-config="skip_credentials_validation=true" -backend-config="skip_region_validation=true" -backend-config="skip_metadata_api_check=true"
 
-      - name: Terraform validate
-        run: terraform validate
+      - name: Tofu validate
+        run: tofu validate
 
-      - name: Terraform plan
-        run: terraform plan -destroy
+      - name: Tofu plan
+        run: tofu plan -destroy
 
-      - name: Terraform destroy
-        run: terraform destroy -auto-approve
+      - name: Tofu destroy
+        run: tofu destroy -auto-approve
