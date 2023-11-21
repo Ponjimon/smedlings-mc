@@ -94,7 +94,7 @@ jobs:
           name: repository
 
       - name: Setup Cloudflare Warp
-        uses: Bootsport/setup-cloudflare-warp@v1
+        uses: Boostport/setup-cloudflare-warp@v1
         with:
           organisation: "ponjimon"
           auth_client_id: ${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}
